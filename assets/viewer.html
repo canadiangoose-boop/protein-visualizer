@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #1a1a2e; }
+    #viewer { width: 100vw; height: 100vh; }
+  </style>
+  <script src="3Dmol-min.js"></script>
+</head>
+<body>
+  <div id="viewer"></div>
+  <script>
+    let viewer = $3Dmol.createViewer("viewer", { backgroundColor: "#1a1a2e" });
+
+    // Called from Python via QWebEngineView.page().runJavaScript()
+    function loadPDB(pdbData, style) {
+      viewer.clear();
+      viewer.addModel(pdbData, "pdb");
+      applyStyle(style || "cartoon");
+      viewer.zoomTo();
+      viewer.render();
+    }
+
+    function applyStyle(style) {
+      viewer.setStyle({});
+      if (style === "cartoon") {
+        viewer.setStyle({}, { cartoon: { colorscheme: "ssJmol" } });
+      } else if (style === "stick") {
+        viewer.setStyle({}, { stick: { colorscheme: "elementJmol" } });
+      } else if (style === "sphere") {
+        viewer.setStyle({}, { sphere: { colorscheme: "elementJmol" } });
+      } else if (style === "surface") {
+        viewer.setStyle({}, { cartoon: { colorscheme: "ssJmol" } });
+        viewer.addSurface($3Dmol.SurfaceType.VDW, { opacity: 0.6 });
+      }
+      viewer.render();
+    }
+  </script>
+</body>
+</html>
