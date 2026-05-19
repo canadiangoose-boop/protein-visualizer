@@ -14,7 +14,7 @@ An interactive desktop application for visualizing 3D protein structures, built 
 
 | Cartoon (Hemoglobin 1HHO) | Surface view |
 |---|---|
-| *(screenshot)* | *(screenshot)* |
+| ![Hemoglobin 1HHO](assets/screenshot.png) | |
 
 ## Built With
 
